@@ -13,6 +13,7 @@ Vous pouvez accéder à la version live du dashboard via ce lien :
 
 ## 🖼️ Aperçu du Dashboard
 ![demo](recording.gif)
+
 ![alt text](image.png)
 
 Le tableau de bord fournit :
