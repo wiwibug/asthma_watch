@@ -1,0 +1,40 @@
+name:  Scraping Géodes Asthme (hebdomadaire)
+
+on:
+  schedule:
+    # Tous les lundis à 09h00 UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:  # Permet de lancer manuellement depuis GitHub
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name:  Checkout du repo
+        uses: actions/checkout@v4
+
+      - name:  Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name:  Installer Chrome et ChromeDriver
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser chromium-driver
+
+      - name:  Installer les dépendances Python
+        run: |
+          pip install selenium webdriver-manager pandas openpyxl
+
+      - name:  Lancer le scraper Géodes
+        run: python scripts/asthme_scraper.py
+
+      - name:  Commit et push des données mises à jour
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/geodes_complet.xlsx
+          git diff --staged --quiet || git commit -m " [auto] Mise à jour données Asthme Géodes - $(date +'%Y-%m-%d')"
+          git push
