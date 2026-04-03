@@ -12,7 +12,7 @@ DATA_DIR = Path(__file__).parent.parent / "data"
 DATA_DIR.mkdir(exist_ok=True)
 
 # Clé API Geodair
-api_key = API_Geodair
+api_key = "Fh4Saf51BS4oqiq7TItLXyf5qetIuC9Y"
 
 # Dictionnaire des polluants d'intérêts
 polluants = {
